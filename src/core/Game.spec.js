@@ -1,5 +1,5 @@
 import Deck from "./Deck";
-import Game from "./index";
+import Game from "./Game";
 
 describe("Game", () => {
   describe("Create new Game", () => {

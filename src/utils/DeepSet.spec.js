@@ -1,4 +1,4 @@
-import Card, { COLORS } from "../Game/Card";
+import Card, { COLORS } from "../core/Card";
 import DeepSet from "./DeepSet";
 
 describe('DeepSet', () => {
