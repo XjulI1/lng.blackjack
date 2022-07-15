@@ -1,9 +1,11 @@
-import { Lightning, Utils } from '@lightningjs/sdk'
-import { totalWidth, totalHeight } from './helpers/sizes'
+import { Lightning, Utils } from "@lightningjs/sdk";
+import { totalWidth, totalHeight } from "./helpers/sizes";
 
 export default class App extends Lightning.Component {
   static getFonts() {
-    return [{ family: 'Regular', url: Utils.asset('fonts/Roboto-Regular.ttf') }]
+    return [
+      { family: "Regular", url: Utils.asset("fonts/Roboto-Regular.ttf") },
+    ];
   }
 
   static _template() {
@@ -12,9 +14,9 @@ export default class App extends Lightning.Component {
         w: totalWidth,
         h: totalHeight,
         color: 0xfffbb03b,
-        src: Utils.asset('images/background.png'),
+        src: Utils.asset("images/background.png"),
       },
-    }
+    };
   }
 
   _init() {}
