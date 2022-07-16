@@ -1,5 +1,5 @@
 import Deck from "./Deck";
-import Game, { PHASES } from "./Game";
+import Game, { STAGES } from "./Game";
 import Player from "./Player";
 import Bank from "./Bank";
 
@@ -18,8 +18,8 @@ describe("Game", () => {
       expect(expectedGame.Bank).toBeInstanceOf(Bank);
     });
 
-    it("should init a Game with phase 'firstDraw'", () => {
-      expect(expectedGame.phase).toEqual(PHASES.firstDraw);
+    it("should init a Game with stage 'firstDraw'", () => {
+      expect(expectedGame.stage).toEqual(STAGES.firstDraw);
     })
   });
 
@@ -34,6 +34,28 @@ describe("Game", () => {
 
       expect(game.Player.cardList[0]).toEqual(firstDeckCard)
       expect(game.Deck.cardList.length).toEqual(deckLength - 1)
+    })
+  })
+
+  describe('nextStage()', () => {
+    describe('when stage is firstDraw', () => {
+      it('should set playerDraw', () => {
+        const game = new Game()
+
+        expect(game.stage).toEqual(STAGES.firstDraw)
+        game.nextStage()
+        expect(game.stage).toEqual(STAGES.playerDraw)
+      })
+    })
+
+    describe('when stage is playerDraw', () => {
+      it('should set bankDraw', () => {
+        const game = new Game()
+        game.nextStage()
+        expect(game.stage).toEqual(STAGES.playerDraw)
+        game.nextStage()
+        expect(game.stage).toEqual(STAGES.bankDraw)
+      })
     })
   })
 });

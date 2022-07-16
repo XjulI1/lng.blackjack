@@ -2,9 +2,12 @@ import Deck from "./Deck";
 import Player from "./Player";
 import Bank from "./Bank";
 
-export const PHASES = {
+export const STAGES = {
   firstDraw: 'firstDraw',
-  bankDraw: 'bankDraw'
+  playerDraw: 'playerDraw',
+  bankDraw: 'bankDraw',
+  playerWin: 'playerWin',
+  bankWin: 'bankWin'
 }
 
 class Game {
@@ -13,11 +16,26 @@ class Game {
     this.Player = new Player()
     this.Bank = new Bank()
 
-    this.phase = PHASES.firstDraw
+    this.stage = STAGES.firstDraw
   }
 
-  drawCard(player) {
-    player.addACard(this.Deck.drawCard())
+  drawCard(playerOrBank) {
+    if (this.stage === STAGES.bankDraw) {
+      playerOrBank.autoDraw(this.Deck)
+    }
+
+    playerOrBank.addACard(this.Deck.drawCard())
+  }
+
+  nextStage() {
+    switch(this.stage) {
+      case STAGES.firstDraw:
+        this.stage = STAGES.playerDraw;
+        break
+      case STAGES.playerDraw:
+        this.stage = STAGES.bankDraw
+        break
+    }
   }
 }
 

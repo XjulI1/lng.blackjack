@@ -103,4 +103,12 @@ describe('Player', () => {
       })
     })
   })
+
+  describe('autoDraw()', () => {
+    it('should throw an error', () => {
+      const expectedPlayer = new Player()
+      expect(() => expectedPlayer.autoDraw()).toThrowError('Player can not make autoDraw')
+
+    })
+  })
 })

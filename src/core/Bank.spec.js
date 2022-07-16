@@ -1,6 +1,6 @@
 import Bank from "./Bank";
 import Card, { COLORS, NUMBERS } from "./Card";
-import { PHASES } from "./Game";
+import { STAGES } from "./Game";
 
 describe('Bank', () => {
   let expectedBank
@@ -21,9 +21,9 @@ describe('Bank', () => {
       expect(expectedBank.cardList).toEqual([new Card(COLORS[0], NUMBERS[2])])
     })
 
-    describe('when is the phase "bankDraw"', () => {
+    describe('when is the stage "bankDraw"', () => {
       it('should return all cards', () => {
-        expectedBank.phase = PHASES.bankDraw
+        expectedBank.stage = STAGES.bankDraw
 
         expect(expectedBank.cardList.length).toEqual(2)
       })
@@ -35,10 +35,14 @@ describe('Bank', () => {
       expect(expectedBank.whatsMyHandValue()).toEqual(4)
     })
 
-    describe('when is the phase "bankDraw"', () => {
+    describe('when is the stage "bankDraw"', () => {
       it('should return the value of all cards', () => {
-        expect(expectedBank.whatsMyHandValue(PHASES.bankDraw)).toEqual(14)
+        expect(expectedBank.whatsMyHandValue(STAGES.bankDraw)).toEqual(14)
       })
     })
+  })
+
+  describe('autoDraw(Deck)', () => {
+
   })
 })

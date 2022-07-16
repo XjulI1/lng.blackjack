@@ -1,19 +1,10 @@
-import Deck from '../../src/core/Deck'
-import Game, { PHASES } from '../../src/core/Game'
-import Player from '../../src/core/Player'
-import Bank from '../../src/core/Bank'
+import Game from '../../src/core/Game'
 
 describe('Simulate a game', () => {
   let game
 
   it("Init a game", () => {
     game = new Game()
-
-    expect(game.Deck).toBeInstanceOf(Deck)
-    expect(game.Player).toBeInstanceOf(Player)
-    expect(game.Bank).toBeInstanceOf(Bank)
-
-    expect(game.phase).toBe(PHASES.firstDraw)
   })
 
   it("draw a visible card for the Player", () => {
@@ -37,6 +28,47 @@ describe('Simulate a game', () => {
   })
 
   it('show one card Bank hand', () => {
-    console.log('Bank hand value :', game.Bank.whatsMyHandValue(), game.Bank.cardList)
+    console.log('Bank hand value :', game.Bank.whatsMyHandValue(game.stage), game.Bank.cardList)
+  })
+
+  it('begin the stage "playerDraw"', () => {
+    game.nextStage()
+  })
+
+  describe('when player hand is a blackjack', () => {
+    it('Player Win', () => {
+      if (game.Player.isBlackJack()) {
+        console.log('Player BLACKJACK')
+      }
+    })
+  })
+
+  describe('when player hand is equals or more than 17', () => {
+    it("don't take other card and go to the next stage", () => {
+      if (game.Player.whatsMyHandValue() >= 17) {
+
+        game.nextStage()
+
+        console.log('Player hand value :', game.Player.whatsMyHandValue(), game.Player.cardList)
+      }
+    })
+  })
+
+  describe('when player hand is less than 17', () => {
+    it('take a new card', () => {
+      if (game.Player.whatsMyHandValue() < 17) {
+        game.drawCard(game.Player)
+
+        console.log('Player hand value :', game.Player.whatsMyHandValue(), game.Player.cardList)
+      }
+    })
+  })
+
+  it('begin the bankDraw stage', () => {
+    game.nextStage()
+  })
+
+  it('bank take cards to have 17 or more', () => {
+    game.drawCard(game.Bank)
   })
 })

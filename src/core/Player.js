@@ -28,6 +28,10 @@ class Player {
   _hasAS() {
     return this.cardList.find((card) => card.number === AS)
   }
+
+  autoDraw() {
+    throw new Error('Player can not make autoDraw')
+  }
 }
 
 export default Player;
