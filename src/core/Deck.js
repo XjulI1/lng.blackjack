@@ -1,4 +1,5 @@
 import Pack from './Pack'
+import { shuffleArray } from '../utils/array'
 
 class Deck {
   constructor(numberOfPack = 5) {
@@ -12,7 +13,7 @@ class Deck {
       tmpList = tmpList.concat((new Pack()).cardList)
     }
 
-    return tmpList
+    return shuffleArray(tmpList);
   }
 }
 

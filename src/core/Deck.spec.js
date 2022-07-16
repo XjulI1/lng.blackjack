@@ -1,6 +1,8 @@
 import Deck from "./Deck";
 import DeepSet from '../utils/DeepSet'
 
+jest.mock('../utils/array.js')
+
 describe('Deck', () => {
   describe('new Deck()', () => {
     const expectedDeck = new Deck()
