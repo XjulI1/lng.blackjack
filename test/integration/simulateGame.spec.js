@@ -31,4 +31,12 @@ describe('Simulate a game', () => {
   it("draw a mask card for the Bank", () => {
     game.drawCard(game.Bank)
   })
+
+  it('show two cards Player hand', () => {
+    console.log('Player hand value :', game.Player.whatsMyHandValue(), game.Player.cardList)
+  })
+
+  it('show one card Bank hand', () => {
+    console.log('Bank hand value :', game.Bank.whatsMyHandValue(), game.Bank.cardList)
+  })
 })

@@ -18,7 +18,7 @@ class Player {
   }
 
   isBlackJack() {
-    return this._hasAS() && this.cardList.length === 2
+    return this.cardList.length === 2 && this._hasAS() && this.cardList.find((card) => card.whatsMyValue() === 10)
   }
 
   _hasAS() {

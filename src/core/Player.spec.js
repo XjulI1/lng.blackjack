@@ -62,6 +62,17 @@ describe('Player', () => {
       })
     })
 
+    describe('when the player have two cards, one As and one other', () => {
+      it('should not be a blackjack', () => {
+        const expectedPlayer = new Player()
+
+        expectedPlayer.addACard(new Card(COLORS[0], NUMBERS[3]))
+        expectedPlayer.addACard(new Card(COLORS[0], AS))
+
+        expect(expectedPlayer.isBlackJack()).toBeFalsy()
+      })
+    })
+
     describe('when the player have three cards, one As and one 10 or figure and other', () => {
       it('should not be a blackjack', () => {
         const expectedPlayer = new Player()
