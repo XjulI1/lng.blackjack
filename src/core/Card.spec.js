@@ -1,4 +1,4 @@
-import Card, { COLORS, NUMBERS } from "./Card";
+import Card, { AS, COLORS, NUMBERS } from "./Card";
 
 describe('Card', () => {
 
@@ -37,7 +37,7 @@ describe('Card', () => {
 
     describe('when is an As', () => {
       it("should return 1", () => {
-        expect((new Card(COLORS[0], NUMBERS[12])).whatsMyValue()).toEqual(1)
+        expect((new Card(COLORS[0], AS)).whatsMyValue()).toEqual(1)
       })
     })
   })
