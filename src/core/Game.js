@@ -2,9 +2,10 @@ import Deck from "./Deck";
 import Player from "./Player";
 import Bank from "./Bank";
 
-export const PHASES = [{
-  firstDraw: 'firstDraw'
-}]
+export const PHASES = {
+  firstDraw: 'firstDraw',
+  bankDraw: 'bankDraw'
+}
 
 class Game {
   constructor() {

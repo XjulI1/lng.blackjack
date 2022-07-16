@@ -2,11 +2,15 @@ import { AS } from "./Card"
 
 class Player {
   constructor() {
-    this.cardList = []
+    this._cardList = []
+  }
+
+  get cardList() {
+    return this._cardList
   }
 
   addACard(card) {
-    this.cardList.push(card)
+    this._cardList.push(card)
   }
 
   whatsMyHandValue() {
