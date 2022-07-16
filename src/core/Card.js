@@ -10,11 +10,9 @@ class Card {
   whatsMyValue() {
     switch(this.number) {
       case NUMBERS[9]:
-        return 11
       case NUMBERS[10]:
-        return 12
       case NUMBERS[11]:
-        return 13
+        return 10
       case NUMBERS[12]:
         return 1
       default:

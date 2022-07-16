@@ -18,26 +18,26 @@ describe('Card', () => {
     })
 
     describe('when is jack', () => {
-      it("should return 1", () => {
-        expect((new Card(COLORS[0], 'jack')).whatsMyValue()).toEqual(11)
+      it("should return 10", () => {
+        expect((new Card(COLORS[0], NUMBERS[9])).whatsMyValue()).toEqual(10)
+      })
+    })
+
+    describe('when is a queen', () => {
+      it("should return 10", () => {
+        expect((new Card(COLORS[0], NUMBERS[10])).whatsMyValue()).toEqual(10)
+      })
+    })
+
+    describe('when is a king', () => {
+      it("should return 10", () => {
+        expect((new Card(COLORS[0], NUMBERS[11])).whatsMyValue()).toEqual(10)
       })
     })
 
     describe('when is an As', () => {
       it("should return 1", () => {
-        expect((new Card(COLORS[0], 'queen')).whatsMyValue()).toEqual(12)
-      })
-    })
-
-    describe('when is an As', () => {
-      it("should return 1", () => {
-        expect((new Card(COLORS[0], 'king')).whatsMyValue()).toEqual(13)
-      })
-    })
-
-    describe('when is an As', () => {
-      it("should return 1", () => {
-        expect((new Card(COLORS[0], 'as')).whatsMyValue()).toEqual(1)
+        expect((new Card(COLORS[0], NUMBERS[12])).whatsMyValue()).toEqual(1)
       })
     })
   })
