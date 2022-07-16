@@ -1,10 +1,25 @@
 export const COLORS = ['spade', 'heart', 'diamond', 'club']
-export const VALUES = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'as']
+export const NUMBERS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'as']
 
 class Card {
-  constructor({color, value}) {
+  constructor(color, number) {
     this.color = color
-    this.value = value
+    this.number = number
+  }
+
+  whatsMyValue() {
+    switch(this.number) {
+      case NUMBERS[9]:
+        return 11
+      case NUMBERS[10]:
+        return 12
+      case NUMBERS[11]:
+        return 13
+      case NUMBERS[12]:
+        return 1
+      default:
+        return parseInt(this.number, 10)
+    }
   }
 }
 
