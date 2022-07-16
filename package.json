@@ -5,8 +5,9 @@
     "start": "lng serve",
     "build": "lng build",
     "dev": "lng dev",
-    "test": "yarn test:unit",
-    "test:unit": "jest",
+    "test": "yarn test:unit && yarn test:integration",
+    "test:unit": "jest ./src",
+    "test:integration": "jest ./test",
     "lint": "eslint ./src"
   },
   "lint-staged": {

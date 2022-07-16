@@ -1,10 +1,22 @@
 import Deck from "./Deck";
+import Player from "./Player";
+import Bank from "./Bank";
+
+export const PHASES = [{
+  firstDraw: 'firstDraw'
+}]
 
 class Game {
-  constructor() {}
+  constructor() {
+    this.Deck = new Deck ()
+    this.Player = new Player()
+    this.Bank = new Bank()
 
-  get Deck() {
-    return new Deck()
+    this.phase = PHASES.firstDraw
+  }
+
+  drawCard(player) {
+    player.addACard(this.Deck.drawCard())
   }
 }
 
