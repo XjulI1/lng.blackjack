@@ -15,13 +15,15 @@ class Bank extends Player {
   }
 
   whatsMyHandValue(stage) {
-    this.stage = stage
+    this.stage = stage || this.stage
 
     return super.whatsMyHandValue()
   }
 
   autoDraw(Deck) {
-
+    while(this.stage === STAGES.bankDraw && this.whatsMyHandValue() < 17) {
+      this.addACard(Deck.drawCard())
+    }
   }
 }
 
