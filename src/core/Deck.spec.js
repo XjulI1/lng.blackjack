@@ -19,4 +19,31 @@ describe('Deck', () => {
       expect(new DeepSet(expectedDeck.cardList).size).toBe(52)
     })
   })
+
+  describe('drawCard', () => {
+    it('should get the first items of the cardList', () => {
+      const expectedDeck = new Deck();
+      const firstCard = expectedDeck.cardList[0]
+
+      expect(expectedDeck.drawCard()).toEqual(firstCard)
+    })
+
+    it('should delete the first items of the cardList', () => {
+      const expectedDeck = new Deck();
+      const firstCard = expectedDeck.cardList[0]
+
+      expectedDeck.drawCard()
+
+      expect(expectedDeck.cardList[0]).not.toEqual(firstCard)
+    })
+
+    it('should have one minus card in the deck', () => {
+      const expectedDeck = new Deck();
+      const expectedDeckLenght = expectedDeck.cardList.length
+
+      expectedDeck.drawCard()
+
+      expect(expectedDeck.cardList.length).toEqual(expectedDeckLenght - 1)
+    })
+  })
 })

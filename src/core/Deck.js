@@ -3,17 +3,21 @@ import { shuffleArray } from '../utils/array'
 
 class Deck {
   constructor(numberOfPack = 5) {
-    this.numberOfPack = numberOfPack
+    this.cardList = this._buildCardList(numberOfPack)
   }
 
-  get cardList() {
+  _buildCardList(numberOfPack) {
     let tmpList = []
 
-    for (let i = 0; i < this.numberOfPack; i++) {
+    for (let i = 0; i < numberOfPack; i++) {
       tmpList = tmpList.concat((new Pack()).cardList)
     }
 
     return shuffleArray(tmpList);
+  }
+
+  drawCard() {
+    return this.cardList.shift()
   }
 }
 
