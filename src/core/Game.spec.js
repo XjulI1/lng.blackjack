@@ -35,6 +35,21 @@ describe("Game", () => {
       expect(game.Player.cardList[0]).toEqual(firstDeckCard)
       expect(game.Deck.cardList.length).toEqual(deckLength - 1)
     })
+
+    describe('when stage is "bankDraw"', () => {
+      it('should call autoDraw() and not call addCard()', () => {
+        game.stage = STAGES.bankDraw
+
+        game.Bank.addACard = jest.fn()
+        game.Bank.autoDraw = jest.fn()
+
+        game.drawCard(game.Bank)
+
+        expect(game.Bank.addACard).not.toHaveBeenCalled()
+        expect(game.Bank.autoDraw).toHaveBeenCalled()
+
+      })
+    })
   })
 
   describe('nextStage()', () => {
@@ -55,6 +70,133 @@ describe("Game", () => {
         expect(game.stage).toEqual(STAGES.playerDraw)
         game.nextStage()
         expect(game.stage).toEqual(STAGES.bankDraw)
+      })
+    })
+
+    describe('when stage is bankDraw', () => {
+      it('should set bankDraw', () => {
+        const game = new Game()
+        game.nextStage()
+        game.nextStage()
+        expect(game.stage).toEqual(STAGES.bankDraw)
+        game.nextStage()
+        expect(game.stage).toEqual(STAGES.findWinner)
+      })
+    })
+  })
+
+  describe('whosTheWinner()', () => {
+    describe('when stage is other name', () => {
+      it('should return Falsy', () => {
+        const game = new Game()
+
+        expect(game.whosTheWinner()).toBeFalsy()
+      })
+    })
+
+    describe('when stage is findWinner', () => {
+      let game
+
+      beforeAll(() => {
+        game = new Game()
+        game.stage = STAGES.findWinner
+      })
+
+      describe('when player as more than bank', () => {
+        it('should return Player', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(4)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(2)
+
+          expect(game.whosTheWinner()).toEqual(game.Player)
+        })
+      })
+
+      describe('when player as less than bank', () => {
+        it('should return Bank', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(2)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(4)
+
+          expect(game.whosTheWinner()).toEqual(game.Bank)
+        })
+      })
+
+      describe('when player and bank are equals', () => {
+        it('should return null', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(2)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(2)
+
+          expect(game.whosTheWinner()).toEqual(null)
+        })
+      })
+
+      describe('when player have more than 21', () => {
+        it('should return Bank', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(23)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(2)
+
+          expect(game.whosTheWinner()).toEqual(game.Bank)
+        })
+      })
+
+      describe('when bank have more than 21', () => {
+        it('should return Bank', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(18)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(22)
+
+          expect(game.whosTheWinner()).toEqual(game.Player)
+        })
+      })
+
+      describe('when bank AND player have more than 21', () => {
+        it('should return Bank', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(23)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(22)
+
+          expect(game.whosTheWinner()).toEqual(game.Bank)
+        })
+      })
+
+      describe('when player have BlackJack', () => {
+        it('should return Player', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(21)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(20)
+          game.Player.isBlackJack = jest.fn().mockReturnValue(true)
+
+          expect(game.whosTheWinner()).toEqual(game.Player)
+        })
+      })
+
+      describe('when player AND bank have BlackJack', () => {
+        it('should return equals', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(21)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(21)
+          game.Player.isBlackJack = jest.fn().mockReturnValue(true)
+          game.Bank.isBlackJack = jest.fn().mockReturnValue(true)
+
+          expect(game.whosTheWinner()).toEqual(null)
+        })
+      })
+
+      describe('when player have 21 AND bank have BlackJack', () => {
+        it('should return equals', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(21)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(21)
+          game.Player.isBlackJack = jest.fn().mockReturnValue(false)
+          game.Bank.isBlackJack = jest.fn().mockReturnValue(true)
+
+          expect(game.whosTheWinner()).toEqual(null)
+        })
+      })
+
+      describe('when player have BlackJack AND bank have 21', () => {
+        it('should return equals', () => {
+          game.Player.whatsMyHandValue = jest.fn().mockReturnValue(21)
+          game.Bank.whatsMyHandValue = jest.fn().mockReturnValue(21)
+          game.Player.isBlackJack = jest.fn().mockReturnValue(true)
+          game.Bank.isBlackJack = jest.fn().mockReturnValue(false)
+
+          expect(game.whosTheWinner()).toEqual(game.Player)
+        })
       })
     })
   })

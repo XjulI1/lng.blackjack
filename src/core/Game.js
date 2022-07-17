@@ -6,8 +6,7 @@ export const STAGES = {
   firstDraw: 'firstDraw',
   playerDraw: 'playerDraw',
   bankDraw: 'bankDraw',
-  playerWin: 'playerWin',
-  bankWin: 'bankWin'
+  findWinner: 'findWinner',
 }
 
 class Game {
@@ -22,9 +21,9 @@ class Game {
   drawCard(playerOrBank) {
     if (this.stage === STAGES.bankDraw) {
       playerOrBank.autoDraw(this.Deck)
+    } else {
+      playerOrBank.addACard(this.Deck.drawCard())
     }
-
-    playerOrBank.addACard(this.Deck.drawCard())
   }
 
   nextStage() {
@@ -35,7 +34,26 @@ class Game {
       case STAGES.playerDraw:
         this.stage = STAGES.bankDraw
         break
+      case STAGES.bankDraw:
+        this.stage = STAGES.findWinner
+        break
     }
+  }
+
+  whosTheWinner() {
+    if (this.stage !== STAGES.findWinner) return undefined
+
+    if (this.Player.isBlackJack() && this.Bank.isBlackJack()) return null
+    if (this.Player.isBlackJack()) return this.Player
+
+    if (this.Player.whatsMyHandValue() > 21) return this.Bank
+    if (this.Bank.whatsMyHandValue() > 21) return this.Player
+
+    if (this.Player.whatsMyHandValue() < this.Bank.whatsMyHandValue()) return this.Bank
+    if (this.Player.whatsMyHandValue() === this.Bank.whatsMyHandValue()) return null
+    if (this.Player.whatsMyHandValue() > this.Bank.whatsMyHandValue()) return this.Player
+
+    throw new Error('Winner can not be determine')
   }
 }
 

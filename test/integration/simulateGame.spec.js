@@ -46,9 +46,6 @@ describe('Simulate a game', () => {
   describe('when player hand is equals or more than 17', () => {
     it("don't take other card and go to the next stage", () => {
       if (game.Player.whatsMyHandValue() >= 17) {
-
-        game.nextStage()
-
         console.log('Player hand value :', game.Player.whatsMyHandValue(), game.Player.cardList)
       }
     })
@@ -66,9 +63,17 @@ describe('Simulate a game', () => {
 
   it('begin the bankDraw stage', () => {
     game.nextStage()
+    console.log('Bank hand value :', game.Bank.whatsMyHandValue(game.stage), game.Bank.cardList)
   })
 
   it('bank take cards to have 17 or more', () => {
     game.drawCard(game.Bank)
+
+    console.log('Bank hand value :', game.Bank.whatsMyHandValue(game.stage), game.Bank.cardList)
+  })
+
+  it('decide the winner', () => {
+    game.nextStage()
+    console.log("Winner : ", game.whosTheWinner())
   })
 })
