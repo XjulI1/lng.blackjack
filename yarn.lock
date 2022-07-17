@@ -1215,6 +1215,11 @@
   resolved "https://registry.npmjs.org/@lightningjs/core/-/core-2.6.0.tgz#6126dbeb796b9fa6930f7a09c972cf2aaacb86d1"
   integrity sha512-OxA7I4oJ9J17i5d2D4pjW29YMLbOOzg5slsJXaUymDDfV38N+BtAj4HdmNm4YwDlz4Vpj59smxyV/L+0I1SneQ==
 
+"@lightningjs/core@2.3.0":
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/@lightningjs/core/-/core-2.3.0.tgz#881eac823690ea8ef6f4bec60ffe8b04d8319e84"
+  integrity sha512-bHA9pQh33HvIIKLJeItipA5tqokMnscQFv15gKp7rRp8SaVDr7jSnDQNltj99lRDSL6j0uEpg7Rtchy0JG5yPw==
+
 "@lightningjs/sdk@^4.8.3":
   version "4.8.3"
   resolved "https://registry.npmjs.org/@lightningjs/sdk/-/sdk-4.8.3.tgz#be08b42cfd35bdc471e1994da82dec2c95aecdf8"
@@ -1228,6 +1233,13 @@
     shelljs "^0.8.5"
     url-polyfill "^1.1.10"
     whatwg-fetch "^3.0.0"
+
+"@lightningjs/ui@^1.2.6":
+  version "1.2.6"
+  resolved "https://registry.npmjs.org/@lightningjs/ui/-/ui-1.2.6.tgz#8d8a97065b0ec0f6217f0dd3ced9917c6ea7ba1e"
+  integrity sha512-c6HjZpMnBXbLMN01x92myCtj5HSuRuMSLzARtB1z57pQtu87la9XEPCC0cBlD43+L/Bjoz8pwB/3YflIXj46Dg==
+  dependencies:
+    "@lightningjs/core" "2.3.0"
 
 "@michieljs/execute-as-promise@^1.0.0":
   version "1.0.0"

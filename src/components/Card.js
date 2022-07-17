@@ -1,8 +1,8 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
 import { COLORS, NUMBERS } from '../core/Card'
 
-const DEFAULT_WIDTH = 72
-const DEFAULT_HEIGHT = 92
+export const DEFAULT_CARD_WIDTH = 72
+export const DEFAULT_CARD_HEIGHT = 92
 
 const SPRITE_WIDTH = 1110
 const SPRITE_HEIGHT = 392
@@ -29,11 +29,11 @@ class Card extends Lightning.Component {
   }
 
   static get width() {
-    return DEFAULT_WIDTH
+    return DEFAULT_CARD_WIDTH
   }
 
   static get height() {
-    return DEFAULT_HEIGHT
+    return DEFAULT_CARD_HEIGHT
   }
 
   set color(value) {
@@ -64,7 +64,7 @@ class Card extends Lightning.Component {
   }
 
   _init() {
-    this.tag('Card.Image').__texture.enableClipping(this._xClipping, this._yClipping, DEFAULT_WIDTH - 3, DEFAULT_HEIGHT - 3)
+    this.tag('Card.Image').__texture.enableClipping(this._xClipping, this._yClipping, DEFAULT_CARD_WIDTH - 3, DEFAULT_CARD_HEIGHT - 3)
   }
 
 }

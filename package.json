@@ -22,7 +22,8 @@
     }
   },
   "dependencies": {
-    "@lightningjs/sdk": "^4.8.3"
+    "@lightningjs/sdk": "^4.8.3",
+    "@lightningjs/ui": "^1.2.6"
   },
   "devDependencies": {
     "@babel/core": "^7.7.2",
