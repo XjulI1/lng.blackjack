@@ -18,6 +18,13 @@ class Game {
     this.stage = STAGES.firstDraw
   }
 
+  firstDraw() {
+    this.drawCard(this.Player)
+    this.drawCard(this.Bank)
+    this.drawCard(this.Player)
+    this.drawCard(this.Bank)
+  }
+
   drawCard(playerOrBank) {
     if (this.stage === STAGES.bankDraw) {
       playerOrBank.autoDraw(this.Deck)

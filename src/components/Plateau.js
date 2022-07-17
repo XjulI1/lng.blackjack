@@ -1,5 +1,14 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
+
+/* HELPERS */
 import { totalWidth, totalHeight } from '../helpers/sizes'
+
+/* CORE */
+import Game from '../core/Game'
+
+/* COMPONENTS */
+import Card from './Card'
+import { COLORS, NUMBERS } from '../core/Card'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 643
@@ -11,7 +20,12 @@ class Plateau extends Lightning.Component {
         mountX: (1-(totalWidth/this.width))/2,
         mountY: (1-(totalHeight/this.height))/2,
         w: this.width,
-        h: this.height
+        h: this.height,
+        Card: {
+          type: Card,
+          color: COLORS[0],
+          number: NUMBERS[10]
+        }
       }
   }
 
@@ -24,7 +38,10 @@ class Plateau extends Lightning.Component {
   }
 
   _init() {
+    window.Game = new Game()
 
+    window.Game.firstDraw()
+    window.Game.nextStage()
   }
 }
 

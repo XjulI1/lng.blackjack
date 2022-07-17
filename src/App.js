@@ -23,6 +23,4 @@ export default class App extends Lightning.Component {
       }
     };
   }
-
-  _init() {}
 }

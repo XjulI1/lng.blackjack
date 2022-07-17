@@ -1,4 +1,4 @@
-export const COLORS = ['spade', 'heart', 'diamond', 'club']
+export const COLORS = ['heart', 'diamond', 'club', 'spade']
 export const NUMBERS = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'jack', 'queen', 'king', 'as']
 export const AS = NUMBERS[12]
 
