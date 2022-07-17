@@ -1,6 +1,8 @@
 import { Lightning, Utils } from "@lightningjs/sdk";
 import { totalWidth, totalHeight } from "./helpers/sizes";
 
+import Plateau from './components/Plateau'
+
 export default class App extends Lightning.Component {
   static getFonts() {
     return [
@@ -16,6 +18,9 @@ export default class App extends Lightning.Component {
         color: 0xfffbb03b,
         src: Utils.asset("images/background.png"),
       },
+      Plateau: {
+        type: Plateau
+      }
     };
   }
 
