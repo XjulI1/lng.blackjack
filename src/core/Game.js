@@ -23,6 +23,8 @@ class Game {
     this.drawCard(this.Bank)
     this.drawCard(this.Player)
     this.drawCard(this.Bank)
+
+    this.nextStage()
   }
 
   drawCard(playerOrBank) {

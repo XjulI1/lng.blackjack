@@ -1,4 +1,6 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
+
+/* CORE */
 import { COLORS, NUMBERS } from '../core/Card'
 
 export const DEFAULT_CARD_WIDTH = 72

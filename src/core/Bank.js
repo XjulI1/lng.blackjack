@@ -11,7 +11,7 @@ class Bank extends Player {
   get cardList() {
     if(this.stage === STAGES.bankDraw) return super.cardList
 
-    return [super.cardList[0]]
+    return super.cardList[0] ? [super.cardList[0]] : undefined
   }
 
   whatsMyHandValue(stage) {

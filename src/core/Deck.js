@@ -1,4 +1,6 @@
 import Pack from './Pack'
+
+/* UTILS */
 import { shuffleArray } from '../utils/array'
 
 class Deck {

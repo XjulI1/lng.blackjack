@@ -1,22 +1,20 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
 import { List } from '@lightningjs/ui'
 
-/* HELPERS */
-import { totalWidth, totalHeight } from '../helpers/sizes'
-
-/* CORE */
-import Game from '../core/Game'
-
 /* COMPONENTS */
 import Card, { DEFAULT_CARD_HEIGHT, DEFAULT_CARD_WIDTH } from './Card'
+
+/* HELPERS */
+import { totalWidth, totalHeight } from '../helpers/sizes'
+import eventBus from '../helpers/eventBus'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 643
 
-class Plateau extends Lightning.Component {
+class Board extends Lightning.Component {
   static _template() {
     return {
-      Plateau: {
+      Board: {
         src: Utils.asset("images/plateau.png"),
         mountX: (1-(totalWidth/this.width))/2,
         mountY: (1-(totalHeight/this.height))/2,
@@ -44,6 +42,7 @@ class Plateau extends Lightning.Component {
           mountY: 0.5,
           w: DEFAULT_CARD_WIDTH * 6,
           h: DEFAULT_CARD_HEIGHT,
+          spacing: 10
         }
       }
     }
@@ -58,39 +57,37 @@ class Plateau extends Lightning.Component {
   }
 
   _init() {
-    window.Game = new Game()
-
-    window.Game.firstDraw()
-
-    this._renderAllCards()
-
-    window.Game.nextStage()
-  }
-
-  _renderAllCards() {
-    this._renderPlayerCards()
-    this._renderBankCards()
+    eventBus.on('addACard', ({Player, Card}) => {
+      switch(Player) {
+        case window.Game.Player:
+          window.Game.Player.cardList.includes(Card) && this._renderCard('PlayerArea', Card)
+          break;
+        case window.Game.Bank:
+          window.Game.Bank.cardList.includes(Card) && this._renderCard('BankArea', Card)
+          break;
+      }
+    })
   }
 
   _renderPlayerCards() {
-    window.Game.Player.cardList.forEach((card) => {
-      this.tag('Plateau.PlayerArea').add({
-        type: Card,
-        color: card.color,
-        number: card.number
-      })
+    window.Game.Player.cardList?.forEach((card) => {
+      this._renderCard('PlayerArea', card)
     })
   }
 
   _renderBankCards() {
-    window.Game.Bank.cardList.forEach((card) => {
-      this.tag('Plateau.BankArea').add({
-        type: Card,
-        color: card.color,
-        number: card.number
-      })
+    window.Game.Bank.cardList?.forEach((card) => {
+      this._renderCard('BankArea', card)
+    })
+  }
+
+  _renderCard(tag, card) {
+    this.tag('Board.' + tag).add({
+      type: Card,
+      color: card.color,
+      number: card.number
     })
   }
 }
 
-export default Plateau
+export default Board

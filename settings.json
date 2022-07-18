@@ -4,6 +4,11 @@
       "clearColor": "0x00000000",
       "useImageWorker": true
     },
+    "keys": {
+      "68": "Drawcard",
+      "80": "Passturn",
+      "78": "Newturn"
+    },
     "debug": true
   },
   "platformSettings": {

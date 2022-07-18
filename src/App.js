@@ -1,7 +1,13 @@
 import { Lightning, Utils } from "@lightningjs/sdk";
-import { totalWidth, totalHeight } from "./helpers/sizes";
 
-import Plateau from './components/Plateau'
+/* COMPONENTS */
+import Board from './components/Board'
+
+/* CORE */
+import Game, { STAGES } from "./core/Game";
+
+/* HELPERS */
+import { totalWidth, totalHeight } from "./helpers/sizes";
 
 export default class App extends Lightning.Component {
   static getFonts() {
@@ -18,9 +24,24 @@ export default class App extends Lightning.Component {
         color: 0xfffbb03b,
         src: Utils.asset("images/background.png"),
       },
-      Plateau: {
-        type: Plateau
+      Board: {
+        type: Board
       }
     };
+  }
+
+  _construct() {
+    window.Game = new Game()
+  }
+
+  _init() {
+    window.Game.firstDraw()
+  }
+
+  _handleDrawcard() {
+    switch(window.Game.stage) {
+      case STAGES.playerDraw:
+        window.Game.drawCard(window.Game.Player)
+    }
   }
 }
