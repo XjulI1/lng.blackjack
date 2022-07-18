@@ -22,6 +22,13 @@ describe('Bank', () => {
       expect(expectedBank.cardList).toEqual([new Card(COLORS[0], NUMBERS[2])])
     })
 
+    describe('when cardList is empty', () => {
+      it('should return undefined', () => {
+        const tmpBank = new Bank()
+        expect(tmpBank.cardList).toEqual([])
+      })
+    })
+
     describe('when is the stage "bankDraw"', () => {
       it('should return all cards', () => {
         expectedBank.stage = STAGES.bankDraw

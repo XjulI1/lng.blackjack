@@ -10,6 +10,7 @@ import eventBus from '../helpers/eventBus'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 643
+const SPACING_BETWEEN_CARD = 10
 
 class Board extends Lightning.Component {
   static _template() {
@@ -28,9 +29,9 @@ class Board extends Lightning.Component {
           y: this.height * 0.65,
           mountX: 0.5,
           mountY: 0.5,
-          w: DEFAULT_CARD_WIDTH * 6,
+          w: DEFAULT_CARD_WIDTH * 5 + SPACING_BETWEEN_CARD * 4,
           h: DEFAULT_CARD_HEIGHT,
-          spacing: 10
+          spacing: SPACING_BETWEEN_CARD
         },
         BankArea: {
           type: List,
@@ -40,9 +41,9 @@ class Board extends Lightning.Component {
           y: this.height * 0.15,
           mountX: 0.5,
           mountY: 0.5,
-          w: DEFAULT_CARD_WIDTH * 6,
+          w: DEFAULT_CARD_WIDTH * 5 + SPACING_BETWEEN_CARD * 4,
           h: DEFAULT_CARD_HEIGHT,
-          spacing: 10
+          spacing: SPACING_BETWEEN_CARD
         }
       }
     }
