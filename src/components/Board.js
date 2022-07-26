@@ -1,16 +1,16 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
-import { List } from '@lightningjs/ui'
 
 /* COMPONENTS */
-import Card, { DEFAULT_CARD_HEIGHT, DEFAULT_CARD_WIDTH } from './Card'
+import Card, { DEFAULT_CARD_HEIGHT } from './Card'
 
 /* HELPERS */
 import { totalWidth, totalHeight } from '../helpers/sizes'
 import eventBus from '../helpers/eventBus'
+import Area from './Area'
+import Result from './Text/Result'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 643
-const SPACING_BETWEEN_CARD = 10
 
 class Board extends Lightning.Component {
   static _template() {
@@ -22,28 +22,24 @@ class Board extends Lightning.Component {
         w: this.width,
         h: this.height,
         PlayerArea: {
-          type: List,
-          rect: true,
-          color: 0xaa666666,
+          type: Area,
           x: this.width / 2,
-          y: this.height * 0.65,
-          mountX: 0.5,
-          mountY: 0.5,
-          w: DEFAULT_CARD_WIDTH * 5 + SPACING_BETWEEN_CARD * 4,
-          h: DEFAULT_CARD_HEIGHT,
-          spacing: SPACING_BETWEEN_CARD
+          y: this.height * 0.65
         },
         BankArea: {
-          type: List,
-          rect: true,
-          color: 0xaa666666,
+          type: Area,
           x: this.width / 2,
-          y: this.height * 0.15,
-          mountX: 0.5,
-          mountY: 0.5,
-          w: DEFAULT_CARD_WIDTH * 5 + SPACING_BETWEEN_CARD * 4,
-          h: DEFAULT_CARD_HEIGHT,
-          spacing: SPACING_BETWEEN_CARD
+          y: this.height * 0.15
+        },
+        PlayerResult: {
+          type: Result,
+          x: this.width / 2 - 25 / 2,
+          y: this.height * 0.65 + (DEFAULT_CARD_HEIGHT - 45)
+        },
+        BankResult: {
+          type: Result,
+          x: this.width / 2 - 25 / 2,
+          y: this.height * 0.15 - (DEFAULT_CARD_HEIGHT - 15),
         }
       }
     }
@@ -61,29 +57,27 @@ class Board extends Lightning.Component {
     eventBus.on('addACard', ({Player, Card}) => {
       switch(Player) {
         case window.Game.Player:
+          this.tag('Board.PlayerResult').patch({
+            text: {
+              text : window.Game.Player.whatsMyHandValue() + ''
+            }
+          })
           window.Game.Player.cardList.includes(Card) && this._renderCard('PlayerArea', Card)
           break;
         case window.Game.Bank:
+          this.tag('Board.BankResult').patch({
+            text: {
+              text : window.Game.Bank.whatsMyHandValue(window.Game.stage) + ''
+            }
+          })
           window.Game.Bank.cardList.includes(Card) && this._renderCard('BankArea', Card)
           break;
       }
     })
   }
 
-  _renderPlayerCards() {
-    window.Game.Player.cardList?.forEach((card) => {
-      this._renderCard('PlayerArea', card)
-    })
-  }
-
-  _renderBankCards() {
-    window.Game.Bank.cardList?.forEach((card) => {
-      this._renderCard('BankArea', card)
-    })
-  }
-
   _renderCard(tag, card) {
-    this.tag('Board.' + tag).add({
+    this.tag('Board.' + tag + '.Area').add({
       type: Card,
       color: card.color,
       number: card.number

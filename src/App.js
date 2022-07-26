@@ -26,6 +26,18 @@ export default class App extends Lightning.Component {
       },
       Board: {
         type: Board
+      },
+      Resume: {
+        x: 20,
+        y: 20,
+        text: {
+          fontSize: 25,
+          textAlign: 'left',
+          maxLines: 4,
+          text: 'C : draw card   D : double card   P : pass turn      N : new turn',
+          wordWrapWidth: 185,
+          textColor: 0xffffffff,
+      }
       }
     };
   }

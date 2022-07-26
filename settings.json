@@ -5,7 +5,8 @@
       "useImageWorker": true
     },
     "keys": {
-      "68": "Drawcard",
+      "67": "Drawcard",
+      "68": "Doublecard",
       "80": "Passturn",
       "78": "Newturn"
     },
@@ -13,6 +14,7 @@
   },
   "platformSettings": {
     "path": "./static",
-    "log": true
+    "log": true,
+    "inspector": true
   }
 }
