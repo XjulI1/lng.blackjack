@@ -1,6 +1,7 @@
 import Deck from "./Deck";
 import Player from "./Player";
 import Bank from "./Bank";
+import eventBus, { EVENTS } from "../helpers/eventBus";
 
 export const STAGES = {
   firstDraw: 'firstDraw',
@@ -47,6 +48,7 @@ class Game {
         this.stage = STAGES.findWinner
         break
     }
+    eventBus.emit(EVENTS.newStage)
   }
 
   whosTheWinner() {

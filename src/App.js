@@ -3,15 +3,17 @@ import { Lightning, Utils } from "@lightningjs/sdk";
 /* COMPONENTS */
 import Board from './components/Board'
 import Resume from './components/Resume'
+import Debug, { DEBUG_WIDTH } from './components/Debug'
 
 /* CORE */
 import Game from "./core/Game";
 
 /* HELPERS */
-import { totalWidth, totalHeight } from "./helpers/sizes";
+import sizes, { totalWidth, totalHeight } from "./helpers/sizes";
 
 /* HANDLES */
 import _handleDrawcard from "./handles/drawcard";
+import _handlePassturn from "./handles/passturn"
 
 class App extends Lightning.Component {
   static getFonts() {
@@ -35,7 +37,12 @@ class App extends Lightning.Component {
         type: Resume,
         x: 20,
         y: 20,
-      }
+      },
+      Debug: {
+        type: Debug,
+        x: sizes.totalWidth - (DEBUG_WIDTH + 20),
+        y: 0,
+      },
     };
   }
 
@@ -49,5 +56,6 @@ class App extends Lightning.Component {
 }
 
 App.prototype._handleDrawcard = _handleDrawcard
+App.prototype._handlePassturn = _handlePassturn
 
 export default App
