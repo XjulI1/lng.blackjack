@@ -1,5 +1,7 @@
 import { Lightning } from "@lightningjs/sdk";
 import { List } from '@lightningjs/ui'
+
+/* COMPONENTS */
 import { DEFAULT_CARD_HEIGHT, DEFAULT_CARD_WIDTH } from './Card'
 
 const SPACING_BETWEEN_CARD = 10

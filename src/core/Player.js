@@ -1,7 +1,7 @@
 import { AS } from "./Card"
 
 /* HELPERS */
-import eventBus from '../helpers/eventBus'
+import eventBus, { EVENTS } from '../helpers/eventBus'
 
 class Player {
   constructor() {
@@ -15,7 +15,7 @@ class Player {
   addACard(card) {
     this._cardList.push(card)
 
-    eventBus.emit('addACard', { Player: this, Card: card })
+    eventBus.emit(EVENTS.addACard, { Player: this, Card: card })
   }
 
   whatsMyHandValue() {

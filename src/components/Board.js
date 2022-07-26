@@ -2,12 +2,12 @@ import { Lightning, Utils } from '@lightningjs/sdk'
 
 /* COMPONENTS */
 import Card, { DEFAULT_CARD_HEIGHT } from './Card'
+import Area from './Area'
+import Result from './Text/Result'
 
 /* HELPERS */
 import { totalWidth, totalHeight } from '../helpers/sizes'
-import eventBus from '../helpers/eventBus'
-import Area from './Area'
-import Result from './Text/Result'
+import eventBus, { EVENTS } from '../helpers/eventBus'
 
 const DEFAULT_WIDTH = 1280
 const DEFAULT_HEIGHT = 643
@@ -54,7 +54,11 @@ class Board extends Lightning.Component {
   }
 
   _init() {
-    eventBus.on('addACard', ({Player, Card}) => {
+    this._initEvents()
+  }
+
+  _initEvents() {
+    eventBus.on(EVENTS.addACard, ({Player, Card}) => {
       switch(Player) {
         case window.Game.Player:
           this.tag('Board.PlayerResult').patch({

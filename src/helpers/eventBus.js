@@ -1,5 +1,7 @@
 import mitt from "mitt"
 
-const eventBus = mitt()
+export const EVENTS = {
+  addACard: 'addACard'
+}
 
-export default eventBus
+export default mitt()
