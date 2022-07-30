@@ -4,6 +4,8 @@ import { Lightning, Utils } from '@lightningjs/sdk'
 import Card, { DEFAULT_CARD_HEIGHT } from './Card'
 import Area from './Area'
 import Result from './Text/Result'
+import Winner from './Text/Winner'
+import { STAGES } from '../core/Game'
 
 /* HELPERS */
 import { totalWidth, totalHeight } from '../helpers/sizes'
@@ -40,6 +42,12 @@ class Board extends Lightning.Component {
           type: Result,
           x: this.width / 2 - 25 / 2,
           y: this.height * 0.15 - (DEFAULT_CARD_HEIGHT - 15),
+        },
+        WinnerResult: {
+          type: Winner,
+          x: this.width / 2 - 10 / 2,
+          y: this.height * 0.45,
+          mountX: 0.5
         }
       }
     }
@@ -78,6 +86,28 @@ class Board extends Lightning.Component {
           break;
       }
     })
+
+    eventBus.on(EVENTS.newStage, (newStage) => {
+      switch(newStage) {
+        case STAGES.bankDraw:
+          window.Game.Bank.stage = window.Game.stage
+
+          this._renderCard('BankArea', window.Game.Bank.cardList[1])
+          this.tag('Board.BankResult').patch({
+            text: {
+              text : window.Game.Bank.whatsMyHandValue(window.Game.stage) + ''
+            }
+          })
+
+          window.Game.Bank.autoDraw(window.Game.Deck, window.Game.stage)
+
+          window.Game.nextStage()
+          break
+
+        case STAGES.findWinner:
+          this._renderWinner(window.Game.whosTheWinner())
+      }
+    })
   }
 
   _renderCard(tag, card) {
@@ -85,6 +115,28 @@ class Board extends Lightning.Component {
       type: Card,
       color: card.color,
       number: card.number
+    })
+  }
+
+  _renderWinner(winner) {
+    let tmpWinner = 'Nobody'
+
+    switch(winner) {
+      case window.Game.Player:
+        tmpWinner = 'Player'
+        break;
+      case window.Game.Bank:
+        tmpWinner = 'Bank'
+        break;
+      case null:
+        tmpWinner = 'Egalité'
+        break;
+    }
+
+    this.tag('Board.WinnerResult').patch({
+      text: {
+        text: tmpWinner
+      }
     })
   }
 }

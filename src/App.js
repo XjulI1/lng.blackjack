@@ -14,6 +14,7 @@ import sizes, { totalWidth, totalHeight } from "./helpers/sizes";
 /* HANDLES */
 import _handleDrawcard from "./handles/drawcard";
 import _handlePassturn from "./handles/passturn"
+import _handleNewturn from './handles/newturn'
 
 class App extends Lightning.Component {
   static getFonts() {
@@ -57,5 +58,6 @@ class App extends Lightning.Component {
 
 App.prototype._handleDrawcard = _handleDrawcard
 App.prototype._handlePassturn = _handlePassturn
+App.prototype._handleNewturn = _handleNewturn
 
 export default App

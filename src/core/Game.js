@@ -48,7 +48,8 @@ class Game {
         this.stage = STAGES.findWinner
         break
     }
-    eventBus.emit(EVENTS.newStage)
+
+    eventBus.emit(EVENTS.newStage, this.stage)
   }
 
   whosTheWinner() {
