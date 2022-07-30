@@ -4,6 +4,7 @@ import Bank from "./Bank";
 import eventBus, { EVENTS } from "../helpers/eventBus";
 
 export const STAGES = {
+  newTurn: 'newTurn',
   firstDraw: 'firstDraw',
   playerDraw: 'playerDraw',
   bankDraw: 'bankDraw',
@@ -16,7 +17,7 @@ class Game {
     this.Player = new Player()
     this.Bank = new Bank()
 
-    this.stage = STAGES.firstDraw
+    this.stage = STAGES.newTurn
   }
 
   firstDraw() {
@@ -36,8 +37,11 @@ class Game {
     }
   }
 
-  nextStage() {
+  nextStage({isNewTurn} = {isNewTurn: false}) {
     switch(this.stage) {
+      case STAGES.newTurn:
+        this.stage = STAGES.firstDraw
+        break
       case STAGES.firstDraw:
         this.stage = STAGES.playerDraw;
         break
@@ -47,6 +51,10 @@ class Game {
       case STAGES.bankDraw:
         this.stage = STAGES.findWinner
         break
+    }
+
+    if (isNewTurn) {
+      this.stage = STAGES.newTurn
     }
 
     eventBus.emit(EVENTS.newStage, this.stage)
@@ -66,6 +74,15 @@ class Game {
     if (this.Player.whatsMyHandValue() > this.Bank.whatsMyHandValue()) return this.Player
 
     throw new Error('Winner can not be determine')
+  }
+
+  newTurn() {
+    this.nextStage({isNewTurn: true})
+
+    window.Game.Player.resetHand(window.Game.Deck)
+    window.Game.Bank.resetHand(window.Game.Deck)
+
+    this.nextStage()
   }
 }
 

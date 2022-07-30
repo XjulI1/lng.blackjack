@@ -99,6 +99,9 @@ class Board extends Lightning.Component {
 
     eventBus.on(EVENTS.newStage, (newStage) => {
       switch(newStage) {
+        case STAGES.firstDraw:
+          window.Game.firstDraw()
+          break
         case STAGES.bankDraw:
           window.Game.Bank.stage = window.Game.stage
 
@@ -116,6 +119,7 @@ class Board extends Lightning.Component {
 
         case STAGES.findWinner:
           this._renderWinner(window.Game.whosTheWinner())
+          break;
       }
     })
   }

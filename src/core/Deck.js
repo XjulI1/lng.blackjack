@@ -6,6 +6,7 @@ import { shuffleArray } from '../utils/array'
 class Deck {
   constructor(numberOfPack = 5) {
     this.cardList = this._buildCardList(numberOfPack)
+    this.dropList = []
   }
 
   _buildCardList(numberOfPack) {
@@ -16,6 +17,14 @@ class Deck {
     }
 
     return shuffleArray(tmpList);
+  }
+
+  addToDropList(card) {
+    if (Array.isArray(card)) {
+      card.map(c => this.dropList.push(c))
+    } else {
+      this.dropList.push(card)
+    }
   }
 
   drawCard() {

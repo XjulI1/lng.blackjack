@@ -37,6 +37,12 @@ class Player {
   autoDraw() {
     throw new Error('Player can not make autoDraw')
   }
+
+  resetHand(Deck) {
+    Deck.addToDropList(this.cardList)
+
+    this._cardList = []
+  }
 }
 
 export default Player;

@@ -52,7 +52,7 @@ class App extends Lightning.Component {
   }
 
   _init() {
-    window.Game.firstDraw()
+    window.Game.newTurn()
   }
 }
 
