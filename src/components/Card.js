@@ -25,6 +25,14 @@ class Card extends Lightning.Component {
             type: Lightning.textures.ImageTexture,
             src: Utils.asset("images/52cards.jpg")
           }
+        },
+        Back: {
+          texture: {
+            type: Lightning.textures.ImageTexture,
+            src: Utils.asset("images/backCard.jpg"),
+            resizeMode: {type: 'contain', w: this.width, h: this.height}
+          },
+          visible: false
         }
       }
     }
@@ -44,6 +52,11 @@ class Card extends Lightning.Component {
 
   set number(value) {
     this._number = value
+  }
+
+  set isMask(value) {
+    this.tag('Card.Image').visible = !value
+    this.tag('Card.Back').visible = value
   }
 
   get _xClipping() {

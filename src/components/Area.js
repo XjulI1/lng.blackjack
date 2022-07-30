@@ -4,7 +4,7 @@ import { List } from '@lightningjs/ui'
 /* COMPONENTS */
 import { DEFAULT_CARD_HEIGHT, DEFAULT_CARD_WIDTH } from './Card'
 
-const SPACING_BETWEEN_CARD = 10
+const DEFAULT_SPACING_BETWEEN_CARD = 10
 
 class Area extends Lightning.Component {
   static _template() {
@@ -15,11 +15,19 @@ class Area extends Lightning.Component {
         color: 0xaa666666,
         mountX: 0.5,
         mountY: 0.5,
-        w: DEFAULT_CARD_WIDTH * 5 + SPACING_BETWEEN_CARD * 4,
+        w: DEFAULT_CARD_WIDTH * 5 + DEFAULT_SPACING_BETWEEN_CARD * 4,
         h: DEFAULT_CARD_HEIGHT,
-        spacing: SPACING_BETWEEN_CARD,
+        spacing: DEFAULT_SPACING_BETWEEN_CARD,
       }
     }
+  }
+
+  set spacingBetweenCard(value) {
+    this.tag('Area').spacing = value || DEFAULT_SPACING_BETWEEN_CARD
+  }
+
+  set hasBackground(value) {
+    value === false && this.tag('Area').patch({color: 0x00ffffff})
   }
 }
 

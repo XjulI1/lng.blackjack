@@ -1,7 +1,7 @@
 import { Lightning, Utils } from '@lightningjs/sdk'
 
 /* COMPONENTS */
-import Card, { DEFAULT_CARD_HEIGHT } from './Card'
+import Card, { DEFAULT_CARD_HEIGHT, DEFAULT_CARD_WIDTH } from './Card'
 import Area from './Area'
 import Result from './Text/Result'
 import Winner from './Text/Winner'
@@ -33,6 +33,14 @@ class Board extends Lightning.Component {
           x: this.width / 2,
           y: this.height * 0.15
         },
+        DeckArea: {
+          type: Area,
+          x: this.width / 4 * 3.50,
+          y: this.height * 0.15,
+          spacingBetweenCard: -(DEFAULT_CARD_WIDTH-4),
+          hasBackground: false,
+          rotation: -45
+        },
         PlayerResult: {
           type: Result,
           x: this.width / 2 - 25 / 2,
@@ -63,6 +71,8 @@ class Board extends Lightning.Component {
 
   _init() {
     this._initEvents()
+
+    this.tag('Board.DeckArea.Area').add(window.Game.Deck.cardList.slice(0, 50).map(card => ({type: Card, color: card.color, number: card.number, isMask: true})))
   }
 
   _initEvents() {

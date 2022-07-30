@@ -7,7 +7,7 @@ class Winner extends Lightning.Component {
         fontSize: 25,
         textAlign: 'center',
         maxLines: 1,
-        text: 'Nobody',
+        text: '',
         wordWrapWidth: 100,
         textColor: 0xffffffff,
       }
