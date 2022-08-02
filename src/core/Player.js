@@ -35,11 +35,11 @@ class Player {
   }
 
   autoDraw() {
-    throw new Error('Player can not make autoDraw')
+    throw new Error('Player can not do autoDraw')
   }
 
   resetHand(Deck) {
-    Deck.addToDropList(this.cardList)
+    Deck.addToDropList(this._cardList)
 
     this._cardList = []
   }

@@ -4,12 +4,14 @@ import { Lightning, Utils } from "@lightningjs/sdk";
 import Board from './components/Board'
 import Resume from './components/Resume'
 import Debug, { DEBUG_WIDTH } from './components/Debug'
+import { STAGES } from './core/Game'
 
 /* CORE */
 import Game from "./core/Game";
 
 /* HELPERS */
 import sizes, { totalWidth, totalHeight } from "./helpers/sizes";
+import eventBus, { EVENTS } from './helpers/eventBus'
 
 /* HANDLES */
 import _handleDrawcard from "./handles/drawcard";
@@ -52,7 +54,27 @@ class App extends Lightning.Component {
   }
 
   _init() {
+    this._initEvents()
+
     window.Game.newTurn()
+  }
+
+  _initEvents() {
+    eventBus.on(EVENTS.newStage, (newStage) => {
+      switch(newStage) {
+        case STAGES.firstDraw:
+          window.Game.firstDraw()
+          break
+
+        case STAGES.bankDraw:
+          window.Game.Bank.stage = window.Game.stage
+
+          window.Game.drawCard(window.Game.Bank)
+
+          window.Game.nextStage()
+          break
+      }
+    })
   }
 }
 

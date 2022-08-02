@@ -77,11 +77,10 @@ class Game {
   }
 
   newTurn() {
-    this.nextStage({isNewTurn: true})
-
     window.Game.Player.resetHand(window.Game.Deck)
     window.Game.Bank.resetHand(window.Game.Deck)
 
+    this.nextStage({isNewTurn: true})
     this.nextStage()
   }
 }

@@ -41,6 +41,14 @@ class Board extends Lightning.Component {
           hasBackground: false,
           rotation: -45
         },
+        DropArea: {
+          type: Area,
+          x: this.width / 4 * 0.70,
+          y: this.height * 0.325,
+          spacingBetweenCard: -(DEFAULT_CARD_WIDTH-4),
+          hasBackground: false,
+          rotation: 45
+        },
         PlayerResult: {
           type: Result,
           x: this.width / 2 - 25 / 2,
@@ -71,12 +79,13 @@ class Board extends Lightning.Component {
 
   _init() {
     this._initEvents()
-
-    this.tag('Board.DeckArea.Area').add(window.Game.Deck.cardList.slice(0, 50).map(card => ({type: Card, color: card.color, number: card.number, isMask: true})))
+    this._renderDeck()
   }
 
   _initEvents() {
     eventBus.on(EVENTS.addACard, ({Player, Card}) => {
+      this._renderDeck()
+
       switch(Player) {
         case window.Game.Player:
           this.tag('Board.PlayerResult').patch({
@@ -86,6 +95,7 @@ class Board extends Lightning.Component {
           })
           window.Game.Player.cardList.includes(Card) && this._renderCard('PlayerArea', Card)
           break;
+
         case window.Game.Bank:
           this.tag('Board.BankResult').patch({
             text: {
@@ -99,9 +109,12 @@ class Board extends Lightning.Component {
 
     eventBus.on(EVENTS.newStage, (newStage) => {
       switch(newStage) {
-        case STAGES.firstDraw:
-          window.Game.firstDraw()
+        case STAGES.newTurn:
+          this.tag('Board.PlayerArea.Area').clear()
+          this.tag('Board.BankArea.Area').clear()
+          this._renderDrop()
           break
+
         case STAGES.bankDraw:
           window.Game.Bank.stage = window.Game.stage
 
@@ -111,10 +124,6 @@ class Board extends Lightning.Component {
               text : window.Game.Bank.whatsMyHandValue(window.Game.stage) + ''
             }
           })
-
-          window.Game.Bank.autoDraw(window.Game.Deck, window.Game.stage)
-
-          window.Game.nextStage()
           break
 
         case STAGES.findWinner:
@@ -125,11 +134,26 @@ class Board extends Lightning.Component {
   }
 
   _renderCard(tag, card) {
-    this.tag('Board.' + tag + '.Area').add({
+    this.tag(`Board.${tag}.Area`).add({
       type: Card,
       color: card.color,
       number: card.number
     })
+  }
+
+  _renderDeck() {
+    this._renderDeckOrDropArea('DeckArea', window.Game.Deck.cardList)
+  }
+
+  _renderDrop() {
+    if (window.Game.Deck.dropList.length > 0 ) {
+      this._renderDeckOrDropArea('DropArea', window.Game.Deck.dropList)
+    }
+  }
+
+  _renderDeckOrDropArea(tag, list) {
+    this.tag(`Board.${tag}.Area`).clear()
+    this.tag(`Board.${tag}.Area`).add(list.slice(0, 50).map(card => ({type: Card, color: card.color, number: card.number, isMask: true})))
   }
 
   _renderWinner(winner) {
