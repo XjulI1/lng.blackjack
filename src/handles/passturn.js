@@ -1,3 +1,10 @@
+/* CORE */
+import { STAGES } from "../core/Game";
+
 export default () => {
-  window.Game.nextStage()
+  switch(window.Game.stage) {
+    case STAGES.playerDraw:
+      window.Game.nextStage()
+      break
+  }
 }

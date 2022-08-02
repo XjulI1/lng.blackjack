@@ -7,8 +7,7 @@ class Result extends Lightning.Component {
         fontSize: 25,
         textAlign: 'center',
         maxLines: 1,
-        text: '-1',
-        wordWrapWidth: 25,
+        text: '',
         textColor: 0xffffffff,
       }
     }

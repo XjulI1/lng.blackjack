@@ -1,3 +1,4 @@
+/* CORE */
 import Card, { COLORS, NUMBERS } from './Card'
 
 class Pack {

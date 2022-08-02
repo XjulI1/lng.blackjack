@@ -1,6 +1,9 @@
+/* CORE */
 import Deck from "./Deck";
 import Player from "./Player";
 import Bank from "./Bank";
+
+/* HELPERS */
 import eventBus, { EVENTS } from "../helpers/eventBus";
 
 export const STAGES = {

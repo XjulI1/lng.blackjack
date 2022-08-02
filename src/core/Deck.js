@@ -1,3 +1,4 @@
+/* CORE */
 import Pack from './Pack'
 
 /* UTILS */

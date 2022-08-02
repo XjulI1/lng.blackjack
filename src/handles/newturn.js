@@ -1,3 +1,10 @@
+/* CORE */
+import { STAGES } from "../core/Game";
+
 export default () => {
-  window.Game.newTurn()
+  switch(window.Game.stage) {
+    case STAGES.findWinner:
+      window.Game.newTurn()
+      break
+  }
 }

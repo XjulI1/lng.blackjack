@@ -1,3 +1,4 @@
+/* CORE */
 import { STAGES } from "./Game";
 import Player from "./Player";
 

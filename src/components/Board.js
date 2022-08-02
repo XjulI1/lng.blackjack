@@ -3,8 +3,7 @@ import { Lightning, Utils } from '@lightningjs/sdk'
 /* COMPONENTS */
 import Card, { DEFAULT_CARD_HEIGHT, DEFAULT_CARD_WIDTH } from './Card'
 import Area from './Area'
-import Result from './Text/Result'
-import Winner from './Text/Winner'
+import Text from './Text'
 import { STAGES } from '../core/Game'
 
 /* HELPERS */
@@ -50,17 +49,17 @@ class Board extends Lightning.Component {
           rotation: 45
         },
         PlayerResult: {
-          type: Result,
+          type: Text,
           x: this.width / 2 - 25 / 2,
           y: this.height * 0.65 + (DEFAULT_CARD_HEIGHT - 45)
         },
         BankResult: {
-          type: Result,
+          type: Text,
           x: this.width / 2 - 25 / 2,
           y: this.height * 0.15 - (DEFAULT_CARD_HEIGHT - 15),
         },
         WinnerResult: {
-          type: Winner,
+          type: Text,
           x: this.width / 2 - 10 / 2,
           y: this.height * 0.45,
           mountX: 0.5
