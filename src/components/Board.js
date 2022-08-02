@@ -42,11 +42,11 @@ class Board extends Lightning.Component {
         },
         DropArea: {
           type: Area,
-          x: this.width / 4 * 0.70,
-          y: this.height * 0.325,
+          x: this.width / 4 * 0.50,
+          y: this.height * 0.15,
           spacingBetweenCard: -(DEFAULT_CARD_WIDTH-4),
           hasBackground: false,
-          rotation: 45
+          rotation: 180
         },
         PlayerResult: {
           type: Text,
